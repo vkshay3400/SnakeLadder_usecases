@@ -20,6 +20,11 @@ function snake(){
 function ladder(){
 	position=$1
 	position=$(($1+$random1))
+	if (( $1 > $WIN_POSITION ))
+	then
+		position=$currentposition
+		currentposition=$position
+	fi
 }
 
 # CASE STATEMENTS FOR CHECKING CONDITION
