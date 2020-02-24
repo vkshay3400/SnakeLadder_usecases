@@ -2,15 +2,42 @@
 
 echo "*************************Snake and Ladder************************"
 
-# CONSTANTS
-WIN_POSITION=100
-START_POSITION=0
-COUNT=0
+# FUNCTION FOR SNAKE
+function snake(){
+	position=$1
+	position=$(($1-$random1))	
+}
+
+# FUNCTION FOR LADDER
+function ladder(){
+	position=$1
+	position=$(($1+$random1))
+}
+
+# CASE STATEMENTS FOR CHECKING CONDITION
+function players(){
 
 # VARIABLE
 position=0
 currentposition=$position
-
-# TO GET RANDOM NUMBER 
 random1=$((1+RANDOM%6))
+random2=$((1+RANDOM%3))
 
+case $random2 in
+		1)
+		position=$position
+		echo SamePosition : $position
+		;;
+		2) 
+			ladder $position
+			echo "Ladder +$random1 : $position"
+		;;
+		*) 
+			snake $position
+			echo Snake -$random1 : $position
+		;;
+esac
+}
+
+# TO PRINT PLAYERS
+players
