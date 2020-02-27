@@ -2,10 +2,22 @@
 
 echo "*************************Snake and Ladder************************"
 
+# CONSTANTS
+COUNT=0
+NO_PLAY=1
+LADDER=2
+SNAKE=3
+WIN_POSITION=100
+START_POSITION=0
+
+# VARIABLE
+position=0
+currentposition=$position
+
 # FUNCTION FOR SNAKE
 function snake(){
 	position=$1
-	position=$(($1-$random1))		
+	position=$(($1-$randomDice))
 	if (( $1 < $START_POSITION ))
 	then
 		position=$START_POSITION
@@ -19,7 +31,7 @@ function snake(){
 # FUNCTION FOR LADDER
 function ladder(){
 	position=$1
-	position=$(($1+$random1))
+	position=$(($1+$randomDice))
 	if (( $1 > $WIN_POSITION ))
 	then
 		position=$currentposition
@@ -29,36 +41,30 @@ function ladder(){
 
 # CASE STATEMENTS FOR CHECKING CONDITION
 function players(){
-# CONSTANTS
-WIN_POSITION=100
-START_POSITION=0
-
-# VARIABLE
-position=0
-currentposition=$position
-
 while [[ $position -ne $WIN_POSITION ]]
 do
-random1=$((1+RANDOM%6))
-random2=$((1+RANDOM%3))
+# GET RANDOM FOR DICE
+randomDice=$((1+RANDOM%6))
+randomCase=$((1+RANDOM%3))
 
-case $random2 in
-		1)
+case $randomCase in
+		$NO_PLAY)
 			position=$position
 			echo SamePosition : $position
 		;;
-		2) 
+		$LADDER)
 			ladder $position
-			echo "Ladder +$random1 : $position"
+			echo "Ladder +$randomDice : $position"
 		;;
-		*) 
+		*)
 			snake $position
-			echo Snake -$random1 : $position
+			echo Snake -$randomDice : $position
 		;;
-		
 esac
+(( COUNT++ ))
 done
 }
 
 # TO PRINT PLAYERS
 players
+echo "Times of dice played: $COUNT"
