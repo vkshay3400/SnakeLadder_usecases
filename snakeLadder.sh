@@ -21,7 +21,7 @@ player2=0
 function snake(){
 	position=$1
 	position=$(($position-$randomDice))
-	if (( $1 < $START_POSITION ))
+	if (( $position < $START_POSITION ))
 	then
 		position=$START_POSITION
 	fi
